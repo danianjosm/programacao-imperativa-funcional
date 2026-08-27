@@ -1,0 +1,24 @@
+Explique detalhadamente o comportamento do programa abaixo quando executado no
+console. Apresente qual será a saída exata gerada pelas sequências de escape utilizadas no formato de
+controle:
+
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+printf("\n\t\"Primeiro programa\"");
+system("PAUSE");
+return 0;
+}
+
+RESPOSTA = O programa tem as bibliotecas stdio.h e stdlib.h, usa printf para exibir uma string com sequências de escape, executa system("PAUSE")
+ para manter o console aberto, e finaliza com return 0.
+Sequências de escape utilizadas:
+\n → nova linha: pula para a linha seguinte
+\t → tabulação: insere um espaço de tab antes do texto
+\" → aspas duplas literais: imprime o caractere " na tela (usado porque a string já é delimitada por aspas duplas)
+Saída exata no console:
+"Primeiro programa"
+
+Uma linha em branco (efeito do \n), seguida de uma linha com um tab e o texto "Primeiro programa" entre aspas duplas reais.
+Depois, system("PAUSE") exibe "Pressione qualquer tecla para continuar..." e mantém a janela aberta até o usuário pressionar uma tecla, e return 0 encerra o programa indicando sucesso.

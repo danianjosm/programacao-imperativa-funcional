@@ -1,0 +1,13 @@
+Analise o seguinte trecho de código em C. Sob a perspectiva do padrão ANSI C, o
+programa está correto para compilação e execução imediata? Caso negativo, descreva quais elementos
+cruciais e diretivas estão faltando no código abaixo:
+
+main()
+{
+printf("Linguagem C");
+system("pause");
+
+RESPOSTA = O programa está incorreto, primeiro não tem a biblioteca de entrada e saida e no programa feito aparece um printf, no final tem 
+o pause que tambem precisa da biblioteca stdlib.h e sem essas bibliotecas o compilador não vai reconhecer essas funções 
+pela regra da ansi c o correto é int main() não o main sozinho. esta faltando a chave pra fechar a função main assim como também esta faltando o return 0 ja que a função é do tipo int ela precisa retornar um valor inteiro no final 
+e como boa pratica falta o \n no print 

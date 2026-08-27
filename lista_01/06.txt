@@ -1,0 +1,16 @@
+Identifique e liste todos os erros de sintaxe (que violam as regras da linguagem C) e de
+lógica contidos no programa abaixo:
+
+main()
+{
+int a=1; b=2; c=3:
+printf("0s números são: %d%d%d\n, a, b, c, d);
+system("pause");
+}
+
+RESPOSTA = faltam #include <stdio.h> e #include<stdlib.h> que são necessarias pra usar o print e sytem. Também está faltando o int 
+antes do main. Não deveria ter ; depois da variavel a pois assim ecerra a declaração antes da hora, o correto seria usar (,) ate que 
+chegasse em c. Em c=3: está errado, deveria ser (;). Em printf está faltando uma aspa dupla. A variavel d nunca foi declarada no programa.
+Falta o return 0; 
+Erro de lógica = No printf existem apenas 3 especificadores %d, mas sãopassados 4 argumentos a,b,c,d 
+. Não tem espaçamento entre os %d. E no texto os numeros usa 0 no lugar de O.
