@@ -1,0 +1,16 @@
+Questão 15. A diretiva #include, amplamente utilizada no topo dos arquivos C, é classificada como:
+a) Uma instrução C nativa (compilada diretamente em linguagem de máquina).
+b) Uma instrução específica de linguagens de programação orientadas a objetos.
+c) Uma diretiva especial para o pré-processador C, executada antes da compilação.
+d) Um objeto de classe de armazenamento dinâmico na memória heap.
+
+RESPOSTA = Alternativa correta: C Uma diretiva especial para o pré-processador C, executada antes da compilação.
+Justificativa: O #include não é um comando da linguagem C propriamente dita, e sim uma diretiva de pré-processador.
+Todas as diretivas de pré-processador começam com o símbolo # e são processadas numa etapa anterior à compilação,
+chamada de pré-processamento. Nessa fase, o pré-processador faz substituições textuais no código-fonte antes que o
+compilador sequer comece a traduzir o programa para linguagem de máquina. No caso específico do #include, 
+o pré-processador localiza o arquivo indicado (como stdio.h) e substitui a linha da diretiva pelo conteúdo integral
+desse arquivo, gerando um novo código-fonte "expandido" que só então é entregue ao compilador. Isso descarta as demais
+alternativas: não é uma instrução compilada diretamente (alternativa a), já que nunca chega a virar código de máquina
+por si só, apenas insere texto; C não é orientada a objetos, e o #include também não tem relação com esse paradigma
+(alternativa b); e não tem nenhuma relação com alocação dinâmica de memória ou heap (alternativa d).

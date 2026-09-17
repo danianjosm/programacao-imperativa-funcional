@@ -1,0 +1,66 @@
+Questão 11. Para cada um dos valores constantes descritos na tabela abaixo, indique a classificação
+correta (por exemplo: constante inteira decimal, constante de ponto flutuante, constante de caractere,
+constante string ou sequência de escape) e o tipo de dado base correspondente em C (como char, int,
+float, double):
+
+RESPOSTA =
+
+Constante: \r
+Classificação: Sequência de escape (retorno de carro)
+Tipo Base em C: char
+
+Constante: 2130
+Classificação: Constante inteira decimal
+Tipo Base em C: int
+
+Constante: -123
+Classificação: Constante inteira decimal negativa
+Tipo Base em C: int
+
+Constante: 33.28
+Classificação: Constante de ponto flutuante
+Tipo Base em C: double
+
+Constante: 0XFA
+Classificação: Constante inteira hexadecimal
+Tipo Base em C: int
+
+Constante: 0101
+Classificação: Constante inteira octal
+Tipo Base em C: int
+
+Constante: 2.0e30
+Classificação: Constante de ponto flutuante notação científica
+Tipo Base em C: double
+
+Constante: \xDC
+Classificação: Sequência de escape hexadecimal
+Tipo Base em C: char
+
+Constante: '"'
+Classificação: Constante de caractere sequência de escape
+Tipo Base em C: char
+
+Constante: '\'
+Classificação: Constante de caractere sequência de escape
+Tipo Base em C: char
+
+Constante: 'F'
+Classificação: Constante de caractere
+Tipo Base em C: char
+
+Constante: 0
+Classificação: Constante inteira decimal
+Tipo Base em C: int
+
+Constante: '\0'
+Classificação: Constante de caractere sequência de escape nula
+Tipo Base em C: char
+
+Constante: "F"
+Classificação: Constante string
+Tipo Base em C: char vetor de char, char[]
+
+Constante: -4567.89
+Classificação: Constante de ponto flutuante negativa
+Tipo Base em C: double

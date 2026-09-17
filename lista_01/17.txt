@@ -1,0 +1,17 @@
+Questão 17. Dentre as instruções de escrita abaixo, quais estão sintaticamente corretas? O que essas
+variações demonstram sobre a flexibilidade de espaçamento e formatação do compilador C?
+a) printf ( "Primeiro programa" );
+b) printf( "Primeiro programa" );
+c) printf("Primeiro programa");
+d) printf "Primeiro programa" ;
+
+RESPOSTA = Estão corretas: a), b) e c)
+Está incorreta: d)
+Justificativa:As alternativas a, b e c são todas sintaticamente válidas e produzem exatamente o mesmo resultado na compilação. 
+Isso acontece porque o compilador C ignora espaços em branco extras (espaços, tabs, quebras de linha) entre os tokens do código, 
+desde que a estrutura sintática básica seja respeitada. Ou seja, o compilador não se importa se há espaço entre o nome da função 
+e o parêntese de abertura, ou entre os parênteses e o argumento, contanto que os elementos essenciais 
+(nome da função, parênteses, argumento, ponto-e-vírgula) estejam presentes e na ordem correta.
+A alternativa d está incorreta porque falta o parêntese de abertura ( logo após printf. Em C, toda chamada de função exige que seus argumentos estejam 
+obrigatoriamente entre parênteses. Sem eles, o compilador não reconhece printf "Primeiro programa" como uma chamada de função válida, e sim como uma 
+sequência de tokens sem sentido sintático, gerando erro de compilação.

@@ -1,0 +1,126 @@
+Lista de Exercicios - Capitulo 2 - Operadores
+Respostas das questoes teoricas e analiticas (Parte I)
+
+------------------------------------------------------------
+
+Questao 01. Truncamento de Tipos e Coercao Implicita
+
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int valor_inteiro;
+    valor_inteiro = 2.97;
+    printf("O valor armazenado eh: %d\n", valor_inteiro);
+    system("PAUSE");
+    return 0;
+}
+
+a) o valor que aparece no console eh 2.
+
+b) isso acontece porque quando voce atribui um valor float/double pra uma variavel int, o C nao
+arredonda, ele simplesmente descarta (corta) a parte decimal. o nome disso eh truncamento (tambem
+chamado de coercao implicita de tipo, porque o compilador converte o 2.97 pra int sem voce pedir e sem
+avisar, so descartando o que sobra depois do ponto).
+
+c) pra controlar isso e arredondar de verdade, da pra somar 0.5 antes de converter (tipo
+(int)(2.97 + 0.5), que ai vira 3), ou usar a funcao round() da biblioteca math.h e so depois converter
+pra int, tipo valor_inteiro = (int) round(2.97);. se o objetivo for so manter a precisao, o mais simples
+e nem converter pra int, deixar a variavel como float ou double mesmo.
+
+------------------------------------------------------------
+
+Questao 02. Entrada Standard de Caracteres vs. Bibliotecas Legadas
+
+a) o <conio.h> deve ser evitado porque ele nao faz parte do padrao ANSI C, foi criado pelo compilador
+Borland/Turbo C la pro MS-DOS/Windows antigo. como nao eh padrao, ele simplesmente nao existe (ou
+nao compila) em compiladores de sistemas modernos tipo Linux e macOS, entao um codigo que usa
+getch() fica preso a um so sistema operacional e perde portabilidade.
+
+b) as funcoes equivalentes e portaveis da <stdio.h> sao o getchar() (pra ler um caractere) e o
+putchar() (pra escrever um caractere).
+
+c) um jeito robusto de ler um caractere ignorando \n residual no buffer eh colocar um espaco antes do
+%c no scanf, tipo assim:
+
+char c;
+scanf(" %c", &c);
+
+esse espaco antes do %c faz o scanf pular qualquer espaco em branco, tab ou quebra de linha que
+tenha sobrado no buffer do teclado antes de ler o caractere de verdade.
+
+------------------------------------------------------------
+
+Questao 04. Operadores de Atribuicao Composta e Precedencia
+
+int a = 1, b = 2, c = 3, d = 4;
+
+a += b + c;              -> a = 1 + (2 + 3) = 6.  a = 6
+
+b *= c = d + 2;           -> primeiro resolve o lado direito: c = d + 2 = 4 + 2 = 6, entao c = 6.
+                              depois b = b * c = 2 * 6 = 12.  b = 12, c = 6
+
+d %= a + a + a;           -> a + a + a = 6+6+6 = 18. d = d % 18 = 4 % 18 = 4 (nao muda, 4 eh menor que 18)
+                              d = 4
+
+d -= c -= b -= a;          -> como a atribuicao eh avaliada da direita pra esquerda:
+                              1) b -= a  -> b = 12 - 6 = 6
+                              2) c -= b  -> c = 6 - 6 = 0
+                              3) d -= c  -> d = 4 - 0 = 4
+                              b = 6, c = 0, d = 4
+
+a += b += c += 7;          -> da direita pra esquerda:
+                              1) c += 7 -> c = 0 + 7 = 7
+                              2) b += c -> b = 6 + 7 = 13
+                              3) a += b -> a = 6 + 13 = 19
+                              a = 19, b = 13, c = 7
+
+valores finais: a = 19, b = 13, c = 7, d = 4
+
+------------------------------------------------------------
+
+Questao 05. Avaliacao de Expressoes Logicas e Relacionais
+
+considerando: int i = 1, j = 2, k = 3, n = 2; float x = 3.3, y = 4.4;
+
+a) i < j + 3            -> 1 < 5                  -> verdadeiro -> 1
+b) 2*i - 7 <= j - 8      -> -5 <= -6               -> falso      -> 0
+c) -x + y >= 2.0*y       -> 1.1 >= 8.8             -> falso      -> 0
+d) x == y                -> 3.3 == 4.4             -> falso      -> 0
+e) !(n - j)              -> n-j = 0, !0            -> verdadeiro -> 1
+f) !n - j                -> cuidado aqui, o ! tem precedencia maior que o -, entao isso NAO eh igual ao
+                             item (e). primeiro calcula !n (n=2, diferente de zero, entao !n = 0), so
+                             depois subtrai j: 0 - 2 = -2. entao o resultado real dessa expressao eh -2,
+                             nao eh um 0 ou 1 "logico puro" - essa questao eh a pegadinha de precedencia
+                             que mostra por que os parenteses do item (e) fazem toda diferenca.
+g) i && j && k           -> 1 && 2 && 3            -> todos diferentes de zero -> 1
+h) i || j - 3 && k       -> (j-3) = -1 (verdadeiro), -1 && k(3) = verdadeiro, i || verdadeiro -> 1
+i) i < j && 2 >= k       -> (1<2)=1 e (2>=3)=0, 1 && 0                          -> 0
+j) i==2 || j==4 || k==5  -> 0 || 0 || 0                                        -> 0
+
+------------------------------------------------------------
+
+Questao 06. Comportamento e Precedencia dos Incrementos
+
+// Trecho A
+int n = 5;
+int x = ++n;
+printf("Trecho A: n = %d, x = %d\n", n, x);
+
+// Trecho B
+int m = 5;
+int y = m++;
+printf("Trecho B: m = %d, y = %d\n", m, y);
+
+a) no pre-incremento (++n) a variavel eh incrementada primeiro e so depois o valor (ja atualizado) eh
+usado/atribuido. entao no Trecho A, n vira 6 e x recebe esse 6 -> imprime "n = 6, x = 6".
+no pos-incremento (m++) acontece o contrario: o valor ATUAL da variavel eh usado/atribuido primeiro,
+e so depois disso ela eh incrementada. entao no Trecho B, y recebe o 5 (valor antigo de m) e so depois
+m vira 6 -> imprime "m = 6, y = 5".
+
+b) essa instrucao (printf("%d\t%d\t%d\n", n, n+1, n++);) da comportamento indefinido porque o padrao
+C nao garante em que ordem os argumentos de uma funcao sao avaliados (pode ser da esquerda pra
+direita, da direita pra esquerda, depende do compilador). alem disso, a variavel n esta sendo lida (n e
+n+1) e modificada (n++) dentro da mesma expressao sem nenhum "sequence point" entre essas
+operacoes, o que viola as regras da linguagem C. por isso o resultado impresso pode mudar
+completamente dependendo do compilador ou ate do nivel de otimizacao usado - nao existe uma unica
+resposta certa pra essa linha.

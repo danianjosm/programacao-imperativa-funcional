@@ -1,0 +1,24 @@
+Questão 09. Determine a saída exata do programa a seguir e explique como o compilador C
+interpreta os argumentos do tipo caractere simples ('\n', '\t', '\"') passados para o modificador %c:
+
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+printf("%c%c%cPrimeiro programa", '\n', '\t', '\"');
+printf("%c", "\"");
+system("PAUSE");
+return 0;
+}
+
+RESPOSTA = Saída exata do primeiro printf "Primeiro programa". os três primeiros %c recebem os caracteres '\n' (nova linha), '\t' (tabulação) e '\"' 
+(aspas duplas), nessa ordem. Como são caracteres simples entre aspas simples, cada um deles representa um único caractere, e o compilador os trata 
+como valores do tipo char (na verdade promovidos a int na chamada da função, já que %c espera um argumento inteiro que é convertido de volta para 
+caractere na hora de imprimir). Por isso o resultado é: pula linha, dá um tab, imprime as aspas, e na sequência vem o texto "Primeiro programa" colado,
+sem espaço, pois não há nada entre o %c e o texto literal na string de formato. Sobre o segundo printf: c printf("%c", "\"");
+O erro do programa: "\"" entre aspas duplas não é um caractere, é uma string (um vetor de caracteres terminado em \0), ou seja, na verdade é um ponteiro.
+O %c espera receber um valor do tipo caractere (int promovido), e não um ponteiro. Isso é uma incompatibilidade de tipos: o compilador 
+(dependendo de quão rigoroso ele é) pode emitir um aviso de warning, mas ainda assim compila, gerando um comportamento indefinido em tempo de execução.
+Na prática, o %c vai interpretar os bits do endereço de memória da string como se fossem um caractere, então o valor impresso é imprevisível, pode 
+aparecer um caractere estranho, um símbolo aleatório ou até nada visível, dependendo do compilador e do ambiente.A diferença chave está em: '\"'
+com aspas simples é um único caractere (funciona certo com %c), enquanto "\"" com aspas duplas é uma string (deveria ser usado com %s, não %c).

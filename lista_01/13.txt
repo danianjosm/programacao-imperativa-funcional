@@ -1,0 +1,18 @@
+Questão 13. No desenvolvimento de programas em C, o que são conceitualmente os arquivos de
+inclusão (headers com extensão .h)?
+a) São bibliotecas pré-compiladas em formato binário contendo funções estruturadas.
+b) São utilitários do sistema que realizam a linkedição dos programas.
+c) São arquivos de texto ASCII padrão contendo protótipos de funções, definições de constantes, macros e
+tipos.
+d) São módulos de controle executados diretamente pelo microprocessador em tempo de execução.
+
+RESPOSTA = Alternativa correta C São arquivos de texto ASCII padrão contendo protótipos de funções, definições de constantes, 
+macros e tipos. Justificativa: Os arquivos de cabeçalho (headers, extensão .h) são arquivos de texto simples, legíveis, que
+contêm as declarações necessárias para que o compilador saiba como usar determinadas funções, constantes e tipos, sem necessariamente 
+conter o código executável dessas funções. Quando você usa #include <stdio.h>, por exemplo, o pré-processador simplesmente copia o 
+conteúdo desse arquivo de texto para dentro do seu código-fonte, antes da compilação propriamente dita. Dentro de um header você
+normalmente encontra: protótipos de funções (a "assinatura" delas, como int printf(const char *format, ...);), definições de constantes
+(usando #define), macros, e definições de tipos (typedef, struct, etc).É importante diferenciar isso das outras alternativas: o header 
+não contém código binário pré-compilado (isso descartaria a alternativa a), não é responsável pela linkedição em si, apenas fornece as
+declarações que o linker depois usa para conectar com o código objeto já compilado (descarta a b), e não é executado diretamente pelo
+processador, é apenas processado em tempo de compilação, antes mesmo do programa existir como executável (descarta a d).

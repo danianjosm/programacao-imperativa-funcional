@@ -1,0 +1,19 @@
+Questão 14. Qual é o papel e o objetivo principal do programador ao incluir arquivos de cabeçalho
+(como <stdio.h>)?
+a) Instruir o compilador a carregar as definições das funções da biblioteca padrão antes de compilar o
+código-fonte.
+b) Linkeditar os arquivos binários do projeto automaticamente.
+c) Executar e testar as saídas de vídeo diretamente no console de depuração.
+d) Converter automaticamente o código-fonte C em arquivos executáveis (.EXE).
+
+RESPOSTA = Alternativa correta A Instruir o compilador a carregar as definições das funções da biblioteca 
+padrão antes de compilar o código-fonte.Justificativa: Quando o programador usa #include <stdio.h>, o objetivo
+é disponibilizar para o compilador as declarações (protótipos) das funções que serão usadas no programa,
+como printf e scanf. Isso acontece na fase de pré-processamento, que ocorre antes da compilação propriamente
+dita: o pré-processador substitui a linha #include pelo conteúdo integral do arquivo de cabeçalho, permitindo
+que o compilador saiba reconhecer essas funções e verificar se estão sendo usadas corretamente
+(tipos de parâmetros, tipo de retorno, etc). As demais alternativas descrevem processos diferentes: a linkedição (alternativa b)
+é uma etapa posterior, feita pelo linker, que conecta o código objeto do programa ao código binário já compilado das funções de
+biblioteca, e não é realizada pelo #include; executar e testar saídas no console de depuração (alternativa c) não tem relação 
+com a inclusão de headers; e a geração do executável .EXE (alternativa d) é resultado de todo o processo de compilação e linkedição,
+ não apenas da inclusão de um cabeçalho.

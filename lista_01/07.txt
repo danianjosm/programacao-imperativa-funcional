@@ -1,0 +1,24 @@
+Descreva a saída exata (incluindo quebras de linha e tabulações) que será impressa no
+console por cada uma das seguintes instruções independentes do printf():
+
+a) printf("\n\tBom dia! Shirley.");
+b) printf("Você já tomou café? \n");
+c) printf("\n\nA solução não existe!\nNão insista.");
+d) printf("Duas\tlinhas\tde\tsaída\nou\tuma?");
+e) printf("%s\n%s\n%s\n", "um", "dois", "três");
+
+RESPOSTA = 
+A 
+Saída: pula uma linha, depois um tab e o texto.
+
+B
+Saída: o texto normalmente, seguido da quebra de linha no final (o cursor vai para a linha de baixo, mas nada mais é impresso nela).
+
+C
+Saída: duas quebras de linha (duas linhas em branco), depois o primeiro texto, quebra de linha, depois o segundo texto.
+
+D 
+Saída: as palavras separadas por tabs na mesma linha, depois quebra de linha, e mais duas palavras separadas por tab.
+
+E 
+Saída: cada string em uma linha separada, com quebra de linha após cada uma (inclusive depois da última).

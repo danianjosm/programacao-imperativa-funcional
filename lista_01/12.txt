@@ -1,0 +1,37 @@
+Questão 12. A declaração de variáveis define o tipo e o identificador de cada espaço reservado na
+memória. Analise cada uma das declarações na tabela a seguir, preencha o seu status (Correto ou
+Incorreto) e, caso seja incorreto, justifique detalhadamente o erro sintático:
+
+a) int a;
+Status: Correto
+Justificativa: Declaração válida de uma variável inteira simples, com tipo e identificador corretos.
+
+b) float b;
+Status: Correto
+Justificativa: Declaração válida de uma variável de ponto flutuante simples.
+
+c) double float c;
+Status: Incorreto
+Justificativa: Não é permitido combinar dois tipos base diferentes (double e float) na mesma declaração. São tipos distintos e mutuamente exclusivos. O correto seria apenas "double c;" ou apenas "float c;"
+
+d) unsigned char d;
+Status: Correto
+Justificativa: Combinação válida. "unsigned" é um modificador de tipo aplicável a char, indicando que a variável armazenará apenas valores não negativos.
+
+e) unsigned e;
+Status: Correto
+Justificativa: Quando usado sozinho, "unsigned" é interpretado pelo compilador como "unsigned int", sendo uma forma abreviada válida em C.
+
+f) long float f;
+Status: Incorreto
+Justificativa: Essa combinação não é um tipo válido no padrão ANSI C. O modificador "long" pode ser aplicado a int (long int) ou a double (long double), mas não a float. Não existe o tipo "long float" na linguagem C padrão.
+
+g) long g;
+Status: Correto
+Justificativa: Quando usado sozinho, "long" é interpretado pelo compilador como "long int", sendo uma forma abreviada válida em C.
+
+h) long double h;
+Status: Correto
+Justificativa: Combinação válida. "long double" é um tipo de ponto flutuante de precisão estendida, reconhecido pelo padrão ANSI C.
+
+

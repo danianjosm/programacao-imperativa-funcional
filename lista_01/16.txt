@@ -1,0 +1,16 @@
+Questão 16. As diretivas de pré-processador em C (todas iniciadas com o caractere #) são lidas e
+interpretadas pelo:
+a) Linkeditor do sistema no momento de montagem do arquivo executável final.
+b) Microprocessador diretamente em tempo de execução.
+c) Pré-processador (fase do compilador que altera o programa-fonte antes da compilação propriamente dita).
+d) Depurador integrado da IDE durante os testes de execução.
+
+RESPOSTA = Alternativa correta: C Pré-processador (fase do compilador que altera o programa-fonte antes da compilação propriamente dita).
+Justificativa: As diretivas iniciadas com # (como #include, #define, #ifdef, entre outras) são interpretadas pelo pré-processador, 
+que atua numa etapa anterior à compilação em si. Essa fase faz alterações puramente textuais no código-fonte, como substituir 
+#include pelo conteúdo do arquivo indicado ou substituir macros definidas com #define pelo seu valor correspondente, gerando um
+novo código-fonte "expandido" que será, só então, entregue ao compilador para ser traduzido em linguagem de máquina.
+Isso descarta as demais alternativas: o linkeditor (alternativa a) atua numa fase posterior, conectando códigos objeto 
+já compilados; o microprocessador (alternativa b) só executa instruções em linguagem de máquina, já depois de todo o 
+processo de compilação e linkedição concluído, nunca lida diretamente com código-fonte ou diretivas; e o depurador da IDE (alternativa d) é 
+uma ferramenta de análise durante a execução ou testes do programa, sem relação com o pré-processamento do código.

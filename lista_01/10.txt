@@ -1,0 +1,13 @@
+Questão 10. A Linguagem C é conhecida por ser sensível a caixa alta e baixa (case sensitive). Explique
+o significado prático desse conceito. Identificadores como 'peso', 'Peso' e 'PESO' representam a mesma
+variável na memória? Assinale a alternativa correta e complemente com sua justificativa:
+a) Depende exclusivamente da implementação do compilador utilizado no sistema.
+b) Verdadeiro (a linguagem C diferencia rigorosamente letras maiúsculas de minúsculas).
+c) Falso (letras maiúsculas e minúsculas são interpretadas como equivalentes pelo compilador).
+
+RESPOSTA =  Alternativa correta B 
+Justificativa: Ser case sensitive significa, na prática, que o compilador C trata letras maiúsculas e minúsculas como caracteres completamente 
+diferentes. Isso vale para tudo: nomes de variáveis, funções, palavras-chave da linguagem, etc.Por causa disso, peso, Peso e PESO não são a mesma
+variável. São três identificadores distintos, e o compilador os trata como três variáveis diferentes, cada uma com seu próprio espaço na memória. 
+Se você declarar int peso = 10; e depois tentar usar PESO sem declará-la antes, o compilador vai acusar erro de identificador não declarado, mesmo que
+ "pareça" a mesma palavra visualmente.
