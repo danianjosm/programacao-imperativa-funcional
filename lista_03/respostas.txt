@@ -1,0 +1,139 @@
+Lista de Exercicios - Capitulo 3 - Laco de Repeticao
+Respostas das questoes teoricas e analiticas (Parte I)
+
+------------------------------------------------------------
+
+Questao 01. Diferencas Fundamentais e Tempo de Avaliacao de Lacos
+
+a) o while testa a condicao ANTES de executar o bloco, entao se a condicao ja comecar falsa o bloco
+roda 0 vezes. o do-while testa DEPOIS de executar o bloco, entao o bloco roda no minimo 1 vez,
+mesmo que a condicao seja falsa desde o inicio.
+
+b) - for: quando a gente sabe quantas vezes vai repetir (contar de 1 a 100, percorrer uma sequencia
+     com contador). inicio, teste e incremento ficam todos no cabecalho.
+   - while: quando nao sabe quantas vezes vai repetir e pode ser que nao precise rodar nenhuma vez
+     (ex.: ler valores ate aparecer um negativo, que eh o sentinela).
+   - do-while: quando o bloco precisa rodar pelo menos uma vez antes de testar (ex.: validar entrada
+     do usuario, mostrar um menu e repetir ate escolher sair).
+
+c) eh um erro de LOGICA, nao de compilacao. o compilador aceita porque o ponto-e-virgula sozinho eh
+um comando vazio, entao 'while (condicao);' vira um laco cujo corpo eh "nao fazer nada". se a
+condicao for verdadeira, o programa fica testando ela pra sempre sem executar nada que mude a
+condicao, entao trava num laco infinito. o bloco { } que vinha depois nao faz parte do laco: ele so
+rodaria uma vez, depois que o laco terminasse (o que nunca acontece nesse caso).
+
+------------------------------------------------------------
+
+Questao 02. Escopo e Tempo de Vida de Variaveis de Bloco
+
+a) porque a variavel soma foi declarada DENTRO das chaves do for. em C uma variavel declarada dentro
+de um bloco { } so existe dentro daquele bloco. quando o printf tenta usar soma fora das chaves, o
+compilador diz que ela nao foi declarada ('soma' undeclared).
+
+b) porque a linha 'int soma = 0;' esta dentro do laco, entao ela roda de novo a cada iteracao: a soma
+eh criada do zero toda volta e perde o que tinha acumulado. o printf mostraria so o i * i daquela
+volta (1, 4, 9, 16...) e nao a soma acumulada.
+
+c) codigo corrigido:
+
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int i;
+    int soma = 0;           // declarada fora do laco e zerada uma vez so
+    for (i = 1; i < 10; i++) {
+        soma += i * i;
+    }
+    printf("Soma final = %d\n", soma);   // imprime 285
+    system("PAUSE");
+    return 0;
+}
+
+- escopo de bloco: uma variavel declarada dentro de { } so pode ser usada dentro daquele bloco (e dos
+  blocos dentro dele).
+- visibilidade: eh de onde no codigo da pra "enxergar" (usar) a variavel. fora do bloco onde ela foi
+  declarada ela fica invisivel.
+- tempo de vida: eh quanto tempo a variavel existe na memoria. uma variavel de bloco nasce quando o
+  bloco comeca e morre quando ele termina; no caso do for, isso acontece a cada iteracao, por isso
+  ela era recriada e zerada toda volta.
+
+------------------------------------------------------------
+
+Questao 03. Flexibilidade do Laco for e Omissao de Expressoes
+
+a) 36	18	9	4	2	1
+(a divisao eh inteira: 9 / 2 = 4, 4 / 2 = 2, 2 / 2 = 1, 1 / 2 = 0, e com a = 0 o teste a > 0
+falha e o laco para.)
+
+b) o laco le um caractere do teclado com getch() a cada volta e para quando a pessoa digita 'X'.
+enquanto nao for 'X', ele imprime o caractere seguinte na tabela ASCII: ch + 1 soma 1 no codigo do
+caractere, entao 'a' vira 'b', 'c' vira 'd' etc. (tipo uma cifra que desloca uma letra).
+os parenteses em (ch = getch()) sao obrigatorios porque o operador != tem precedencia MAIOR que o
+operador de atribuicao =. sem eles o C faria primeiro getch() != 'X' (que da 0 ou 1) e guardaria
+esse 0 ou 1 em ch, em vez de guardar o caractere digitado.
+
+c) colocando dentro do laco um if com uma condicao de parada e um break, que sai do laco. por
+exemplo:
+for (;;) {
+    printf("Laco Infinito\n");
+    if (contador == 10)
+        break;
+    contador++;
+}
+(tambem da pra usar return pra sair da funcao inteira.)
+
+------------------------------------------------------------
+
+Questao 04. Comandos de Desvio de Fluxo: break vs. continue
+
+a) o break encerra o laco na hora: o resto do bloco nao eh executado, o teste nao eh feito de novo e
+o programa continua na primeira instrucao depois do laco.
+
+b) o continue pula o resto do bloco SO naquela iteracao e vai pra proxima volta. no for, a expressao
+executada logo depois do continue eh a de INCREMENTO (ex.: i++), e depois dela vem o teste.
+
+c) so o laco INTERNO eh interrompido. o break sai apenas do laco onde ele esta; o laco externo
+continua normalmente e na proxima volta dele o laco interno comeca de novo.
+
+------------------------------------------------------------
+
+Questao 05. Operador Virgula e Multiplas Variaveis de Controle
+
+a) 5 iteracoes. (i sobe de 0 e j desce de 10; quando i = 5 e j = 5, o teste i < j da falso.)
+
+b) i = 0, j = 10 | soma = 10
+   i = 1, j = 9 | soma = 10
+   i = 2, j = 8 | soma = 10
+   i = 3, j = 7 | soma = 10
+   i = 4, j = 6 | soma = 10
+
+c) int i, j;
+   i = 0;
+   j = 10;
+   while (i < j) {
+       printf("i = %d, j = %d | soma = %d\n", i, j, i + j);
+       i++;
+       j--;
+   }
+
+------------------------------------------------------------
+
+Questao 06. Laco Sem Corpo e Incremento Pos-fixado
+
+a) Valor final de x = 6
+
+b) no x++ pos-fixado, o C primeiro usa o valor atual de x na comparacao e SO DEPOIS soma 1.
+- compara 0 < 5 (verdadeiro), x vira 1
+- compara 1 < 5 (verdadeiro), x vira 2
+- compara 2 < 5 (verdadeiro), x vira 3
+- compara 3 < 5 (verdadeiro), x vira 4
+- compara 4 < 5 (verdadeiro), x vira 5
+- compara 5 < 5 (falso), mas o incremento acontece mesmo assim: x vira 6, e o laco termina.
+por isso o resultado eh 6 e nao 5: o ultimo teste, que da falso, tambem incrementa.
+
+c) int x = 0;
+   while (x < 5) {
+       x++;
+   }
+   x++;   // incremento do ultimo teste (o que deu falso)
+   printf("Valor final de x = %d\n", x);
