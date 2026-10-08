@@ -1,0 +1,123 @@
+Simulado - Capitulos 1, 2 e 3
+Respostas das questoes teoricas e analiticas (Parte I)
+
+------------------------------------------------------------
+
+Questao 01. Sensibilidade a Caixa (Case Sensitivity) e Identificadores em C
+
+Resposta: alternativa c)
+
+- a) errada: 'numero' e 'Numero' sao duas variaveis diferentes, cada uma com seu proprio endereco.
+- b) errada: o ponto de entrada tem que ser 'main' tudo minusculo. 'Main' eh so um nome qualquer de
+  funcao, e o programa nao acha o main na hora de montar o executavel.
+- c) certa: como o C diferencia maiuscula de minuscula, valor/VALOR, peso/Peso e taxa/TAXA sao
+  identificadores totalmente diferentes.
+- d) errada: isso eh regra da propria linguagem C, nao depende do sistema operacional.
+
+------------------------------------------------------------
+
+Questao 02. Especificadores de Formato, Sequencias de Escape e Erros de Compilacao
+
+os tres erros:
+
+1) o texto do printf esta sem aspas. tudo que eh texto (string) precisa ficar entre aspas duplas:
+   printf("A idade do aluno eh: %d anos.\n", idade);
+
+2) 'cout << endl;' nao existe em C, isso eh da linguagem C++ (da biblioteca iostream). em C a quebra
+   de linha se faz com a sequencia de escape \n dentro do printf.
+
+3) 'int Main()' com M maiusculo. o C diferencia maiuscula de minuscula, entao o compilador nao
+   reconhece como a funcao principal e da erro de que falta o main.
+
+(de bonus: o ';' depois do '#include <stdlib.h>' tambem esta errado. #include eh uma diretiva do
+pre-processador e nao termina com ponto-e-virgula; o gcc reclama de "extra tokens".)
+
+codigo corrigido:
+
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+    int idade = 20;
+    printf("A idade do aluno eh: %d anos.\n", idade);
+    system("PAUSE");
+    return 0;
+}
+
+------------------------------------------------------------
+
+Questao 03. Operadores de Atribuicao Composta e Avaliacao Sequencial
+
+valores iniciais: a = 2, b = 4, c = 5, d = 10
+
+a += b + c;        -> a = 2 + (4 + 5) = 11
+b *= c = d - 2;    -> primeiro c = 10 - 2 = 8, depois b = 4 * 8 = 32   (c = 8, b = 32)
+d %= a + 3;        -> d = 10 % (11 + 3) = 10 % 14 = 10
+a += b += c += 5;  -> resolve da direita pra esquerda:
+                      c = 8 + 5 = 13
+                      b = 32 + 13 = 45
+                      a = 11 + 45 = 56
+
+valores finais: a = 56, b = 45, c = 13, d = 10
+
+------------------------------------------------------------
+
+Questao 04. Avaliacao de Expressoes Logicas, Relacionais e Precedencia
+
+i = 2, j = 3, k = 0, x = 2.5, y = 5.0
+
+a) i < j + 2          -> 2 < 5                        -> 1
+b) 2 * i - 5 <= j - 4 -> 4 - 5 <= 3 - 4 -> -1 <= -1  -> 1
+c) !k && (x + y >= 7.5) -> !0 = 1 e 7.5 >= 7.5 = 1    -> 1
+d) !(i == j) || (y / x == 2.0) -> !(0) = 1, e com || ja basta um verdadeiro -> 1
+e) i == 2 && j == 4 || k == 0 -> o && vem antes do ||:
+   (1 && 0) || 1 -> 0 || 1                             -> 1
+
+------------------------------------------------------------
+
+Questao 05. Estruturas de Repeticao: Comparacao entre for, while e do-while
+
+a) o while testa a condicao ANTES de executar o bloco, entao pode rodar 0 vezes se a condicao ja
+comecar falsa. o do-while testa DEPOIS, entao o bloco sempre roda no minimo 1 vez.
+
+b) o for eh melhor quando a gente sabe quantas vezes vai repetir, ou seja, quando tem um contador
+(ex.: de 1 ate 100, percorrer N elementos). como inicializacao, teste e incremento ficam juntos no
+cabecalho, fica mais facil de ler e mais dificil de esquecer o incremento.
+
+c) eh erro de LOGICA, nao de compilacao. o ';' sozinho eh um comando vazio, entao o laco fica sem
+corpo nenhum. se a condicao for verdadeira, o programa fica testando ela pra sempre sem fazer nada
+que mude a condicao, e trava num laco infinito.
+
+------------------------------------------------------------
+
+Questao 06. Escopo de Bloco e Comandos de Desvio (break e continue)
+
+a) porque a variavel soma foi declarada dentro das chaves do for, entao ela so existe dentro do
+laco. no printf, que esta fora do laco, o compilador nao conhece soma e da erro de que ela nao foi
+declarada ('soma' undeclared).
+
+b) - i = 1, 2, 3 e 4: executam o bloco inteiro.
+   - i = 5: o continue pula o resto do bloco e vai direto pro i++, entao o 5 nao entra na soma.
+   - i = 6 e 7: executam o bloco inteiro.
+   - i = 8: o break encerra o laco na hora, entao 8, 9 e 10 nunca sao somados.
+   ou seja, entram na conta so 1, 2, 3, 4, 6 e 7.
+
+c) codigo corrigido:
+
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int i;
+    int soma = 0;   // fora do laco: existe depois dele e nao zera a cada volta
+    for (i = 1; i <= 10; i++) {
+        if (i == 5) continue;
+        if (i == 8) break;
+        soma += i * i;
+    }
+    printf("Soma final = %d\n", soma);
+    system("PAUSE");
+    return 0;
+}
+
+saida no console: Soma final = 115
+(1 + 4 + 9 + 16 + 36 + 49 = 115)
