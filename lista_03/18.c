@@ -26,4 +26,4 @@ int main()
     return 0;
 }
 
-// teste de mesa com 123: invertido = 3 -> 32 -> 321
+
