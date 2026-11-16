@@ -1,0 +1,145 @@
+Lista de Exercicios - Capitulo 5 - Funcoes
+Respostas das questoes teoricas e analiticas (Parte I)
+
+------------------------------------------------------------
+
+Questao 01. Anatomia de uma Funcao e o Papel do Prototipo
+
+a) - prototipo: 'float celsius(float);' (antes da main). avisa o compilador que existe uma funcao
+     chamada celsius, que recebe um float e devolve um float. eh so a "assinatura", sem o corpo.
+   - chamada: 'c = celsius(f);' (dentro da main). eh onde a funcao eh usada: o valor de f eh copiado
+     pro parametro, a funcao roda e o valor devolvido eh guardado em c.
+   - definicao: 'float celsius(float fahr) { return (fahr - 32.0) * 5.0 / 9.0; }' (depois da main).
+     eh o corpo da funcao, onde fica o codigo que faz o calculo de verdade.
+
+b) o prototipo serve pro compilador conferir se a chamada esta certa ANTES de ver a definicao:
+quantidade de parametros, tipo de cada um e tipo do retorno. como o compilador le o arquivo de cima
+pra baixo, sem o prototipo ele chega na chamada 'celsius(f)' sem saber nada da funcao. no C antigo
+ele assumia que a funcao devolvia int e nao conferia os parametros (declaracao implicita); nos
+compiladores atuais isso da aviso ou erro. ai o float devolvido pode ser lido como int e o
+resultado sai errado, e se a gente passar parametros de tipo ou quantidade errados ninguem avisa.
+
+c) a funcao celsius eh do tipo float. o tipo da funcao eh o tipo do valor que ela devolve no
+return, porque eh esse valor que "substitui" a chamada na expressao (em 'c = celsius(f)', a chamada
+vira um float). os parametros sao so as entradas: uma funcao pode receber int e devolver float, ou
+receber varios parametros e devolver um valor so. por isso o tipo dela eh decidido pela saida.
+
+------------------------------------------------------------
+
+Questao 02. O Comando return e suas Limitacoes
+
+a) uma funcao em C devolve no maximo UM valor pelo return. o programador queria devolver a soma E a
+media ao mesmo tempo. mas 'return soma, media;' usa o operador virgula: ele avalia soma, joga fora,
+e o valor da expressao inteira fica sendo so o ultimo (media). entao a funcao devolve so a media, e
+a soma se perde sem nenhum erro de compilacao.
+
+b) o 'return;' numa funcao void encerra a funcao na hora e volta pra quem chamou, sem devolver
+valor. no exemplo, se erro < 0 ele imprime "Erro invalido" e sai, entao o printf de "Codigo
+processado" nao roda. ele NAO eh obrigatorio no final de uma funcao void: quando a execucao chega na
+chave } do final, a funcao termina sozinha. ele so eh util pra sair antes do fim.
+
+c)
+int calcular(int a, int b, int c) {
+    int soma = a + b + c;
+    int media = soma / 3;
+    return media;
+}
+
+int somar(int a, int b, int c) {
+    return a + b + c;
+}
+
+precisamos de duas funcoes porque o return so carrega um valor. cada funcao devolve um resultado,
+entao pra ter dois resultados diferentes usando so return, cada resultado precisa da sua funcao.
+
+------------------------------------------------------------
+
+Questao 03. Funcoes void, Parametros e Assinaturas
+
+a) - void exibe_mensagem(char* msg): TEM parametro (msg) e NAO tem retorno.
+   - int obter_codigo(void): NAO tem parametro e TEM retorno (int).
+   - void limpar_tela(void): NAO tem parametro e NAO tem retorno.
+
+b) a funcao com retorno calcula algo e devolve o resultado pra quem chamou, que pode guardar numa
+variavel ou usar numa conta. ex.: calcular a media de notas (float media(...)), porque a main vai
+usar esse numero depois. o procedimento (void) so executa uma acao e nao devolve nada. ex.: mostrar
+um menu na tela (void exibeMenu(void)), porque o objetivo eh imprimir, nao produzir um valor.
+
+c) nao eh valida. limpar_tela eh void, ou seja, nao devolve valor nenhum, entao nao tem o que
+guardar em x. o compilador da erro ("void value not ignored as it ought to be").
+
+------------------------------------------------------------
+
+Questao 04. Recursao: Caso Base, Passo Recursivo e Pilha de Execucao
+
+a) - caso base: (n == 0) -> devolve 1. eh onde a recursao para.
+   - passo recursivo: n * fatorial(n - 1). a funcao chama ela mesma com um problema menor.
+sem o caso base a funcao nunca para de se chamar: fatorial(0) chamaria fatorial(-1), que chamaria
+fatorial(-2), e assim por diante, ate a memoria da pilha acabar e o programa travar (stack overflow).
+
+b) fase de empilhamento (as chamadas vao abrindo e ficam esperando):
+   fatorial(4) = 4 * fatorial(3)   -> espera
+   fatorial(3) = 3 * fatorial(2)   -> espera
+   fatorial(2) = 2 * fatorial(1)   -> espera
+   fatorial(1) = 1 * fatorial(0)   -> espera
+   fatorial(0) = 1                 -> caso base, devolve 1
+
+   fase de desempilhamento (as respostas voltam de baixo pra cima):
+   fatorial(0) devolve 1
+   fatorial(1) devolve 1 * 1 = 1
+   fatorial(2) devolve 2 * 1 = 2
+   fatorial(3) devolve 3 * 2 = 6
+   fatorial(4) devolve 4 * 6 = 24
+
+c) cada chamada cria um novo "quadro" (registro de ativacao) no topo da pilha de execucao, com a sua
+propria copia de n, o endereco de retorno e o espaco pro resultado. esse quadro fica parado
+esperando a chamada de baixo terminar. quando o caso base devolve, os quadros vao sendo retirados
+do topo um por um (o ultimo a entrar eh o primeiro a sair). sem caso base os quadros nunca sao
+retirados e a pilha, que tem tamanho limitado, enche: o programa estoura a pilha (stack overflow) e
+eh encerrado com erro.
+
+------------------------------------------------------------
+
+Questao 05. Diretiva #define, Constantes e Macros com Argumentos
+
+a) saida:
+   25
+   8
+o pre-processador so troca texto, sem fazer conta antes.
+   - SQR(2+3) vira ((2+3)*(2+3)) = 5 * 5 = 25. os parenteses em volta de cada x garantem que o 2+3
+     seja calculado inteiro antes da multiplicacao.
+   - DOBRO(2+3) vira 2+3*2. como * tem prioridade sobre +, fica 2 + 6 = 8, e nao 10. faltaram os
+     parenteses de protecao. o certo seria #define DOBRO(x) ((x)*2).
+
+b) porque #define nao eh um comando do C, eh uma diretiva do pre-processador, que so faz troca de
+texto. se tivesse ';', o ';' entraria junto na troca (ex.: #define PI 3.14; faria 'area = PI * r'
+virar 'area = 3.14; * r', que da erro). usamos MAIUSCULAS por convencao, pra quem le o codigo saber
+na hora que aquilo eh uma constante ou macro, e nao uma variavel ou funcao.
+
+c) porque tem um espaco entre PRN e o (. com o espaco, o pre-processador entende que PRN eh uma
+constante simples (sem argumentos) e que o texto dela eh '(n) printf("%d", n)'. o certo eh sem
+espaco: #define PRN(n) printf("%d", n)
+diferenca entre macro e funcao: a macro eh trocada pelo texto antes da compilacao (nao existe
+chamada, nao tem verificacao de tipo e o argumento eh colado do jeito que foi escrito), enquanto a
+funcao existe no executavel, eh chamada durante a execucao, tem tipo nos parametros e o argumento eh
+calculado uma vez so antes de entrar (por isso a funcao dobro(2+3) da 10 e a macro sem parenteses
+da 8).
+
+------------------------------------------------------------
+
+Questao 06. Diretivas #include, #undef e Compilacao Condicional
+
+a) - #include <stdio.h>: com < >, o pre-processador procura o arquivo nas pastas da biblioteca
+     padrao do compilador. usamos pras bibliotecas do sistema (stdio.h, math.h, stdlib.h...).
+   - #include "areas.h": com aspas, ele procura primeiro na pasta do proprio projeto (onde esta o
+     .c) e depois nas pastas do sistema. usamos pros arquivos de cabecalho que a gente mesmo criou.
+
+b) #undef SOMA apaga a definicao da macro SOMA. dali pra baixo, SOMA nao existe mais (usar SOMA(1,2)
+daria erro, e da pra definir SOMA de novo com outro conteudo). '#undef SOMA(x,y)' esta errado
+porque o #undef recebe so o NOME da macro, sem a lista de argumentos.
+
+c) imprime "Modo normal". essa decisao eh tomada no PRE-PROCESSAMENTO, antes de compilar: o
+pre-processador ve que DEBUG nao foi definido e simplesmente apaga o trecho do #ifdef, deixando so
+o printf do #else. as diretivas nao aparecem no executavel porque o pre-processador ja resolve
+todas elas (troca, inclui ou remove texto) e entrega pro compilador so codigo C puro. o executavel
+nem sabe que existiu um #ifdef.
